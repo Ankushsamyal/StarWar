@@ -1,46 +1,78 @@
-# Getting Started with Create React App
+# StarWar — Character Cards (React + TypeScript)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Lightweight React app that displays Star Wars characters and character cards. Built with Create React App (TypeScript template) and a small assets set of SVG character icons.
 
-## Available Scripts
+## What this project contains
 
-In the project directory, you can run:
+- React + TypeScript front-end
+- Character card components in `src/components/card`
+- Pagination and search controls
+- Character-related API services in `src/services/Character`
+- Character SVG assets in `src/assets/character` with an aggregator module (`index.ts`) that re-exports them
 
-### `npm start`
+## Quick start
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. Install dependencies
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```powershell
+npm install
+```
 
-### `npm test`
+2. Start the dev server
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```powershell
+npm start
+```
 
-### `npm run build`
+Open http://localhost:3000 in your browser. The app will hot-reload on changes.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Available scripts
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- `npm start` — start dev server
+- `npm test` — run tests
+- `npm run build` — production build
+- `npm run eject` — eject CRA config (irreversible)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Character assets / images
 
-### `npm run eject`
+All character SVGs live in `src/assets/character`. There's an `index.ts` aggregator that imports each SVG and exports them as named exports plus a default object map:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- Named import example:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```ts
+import { ObiWanKenobi } from "src/assets/character";
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- Default map example:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```ts
+import characterImages from "src/assets/character";
+// e.g. characterImages.ObiWanKenobi
+```
 
-## Learn More
+Use these imports in components like:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```tsx
+<img src={characterImages.ObiWanKenobi} alt="Obi-Wan Kenobi" />
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+If you add or remove SVGs, keep `src/assets/character/index.ts` in sync (it is currently auto-managed in this repo).
+
+## Project structure (important parts)
+
+- `src/components` — UI components (cards, pagination, search)
+- `src/services/Character` — API client and service methods to fetch SWAPI data
+- `src/store` / `src/slice` — Redux store and slices (characters state)
+- `src/assets/character` — SVGs and the aggregator
+- `src/utils` — helper functions (formatters, image maps)
+
+## Notes & next steps
+
+- There's a placeholder entry for some characters (for example Anakin) without a matching SVG; add images to `src/assets/character` and export them from the aggregator.
+- If you'd like, I can:
+  - Replace all individual SVG imports across the codebase with the single aggregator import
+  - Run a TypeScript check / `npm run build` and fix any issues
+
+## License & contact
+
+This is a sample/demo project. Add your license or author details here.
